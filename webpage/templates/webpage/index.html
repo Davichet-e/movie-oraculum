@@ -10,6 +10,9 @@
 
 <body>
     <h1>Welcome to Movie Oraculum!</h1>
+    {% for movie in most_popular_movies %}
+        <div>{{ movie }}</div>
+    {% endfor %}
 </body>
 
 </html>
