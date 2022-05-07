@@ -1,0 +1,29 @@
+{% for movie in movies %}
+    <div class="movie">
+        <div>Title: {{ movie.title }}</div>
+        <div>Poster URL: <a href="{{ movie.poster_url }}">click</a></div>
+        <div>Release year: {{ movie.release_year }}</div>
+        <div>Duration: {{ movie.duration }} (hh:mm:ss)</div>
+        <div>Rating: {{ movie.rating }} / 10</div>
+        <div>Plot: <div class="plot">{{ movie.plot }}</div></div>
+        <div>Directors:
+            <ul>
+            {% for director in movie.directors %}
+                <li>{{ director }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div>Genres:
+            {% if movie.genres is None %}
+                Not fetched
+            {% else %}
+                <ul>
+                {% for genre in movie.genres %}
+                    <li>{{ genre }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+    </div>
+    {% endfor %}

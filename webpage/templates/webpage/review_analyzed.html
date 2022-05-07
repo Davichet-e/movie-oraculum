@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Result of the analysis</h1>
+    <h3>Text:</h3>
+    {{ text }}
+    <h3>Result:</h3>
+    <strong>
+        {% if is_review_positive %}
+            Positive
+        {% else %}
+            Negative
+        {% endif %}
+    </strong>
+{% endblock %}

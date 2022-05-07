@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'webpage/style.css' %}">
+    <title>{% block title %}Movie Oraculum{% endblock %}</title>
+    {% block head %}{% endblock head %}
+</head>
+
+<body>
+    <div id="sidebar">
+        {% block sidebar %}
+        <ul class="sidebar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/top-movies">Top movies</a></li>
+            <li><a href="/review-analysis">Review analysis</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

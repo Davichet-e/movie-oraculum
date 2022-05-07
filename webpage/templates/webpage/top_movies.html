@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Top movies from IMDb:</h1>
+{% include "./list_movies.html" with movies=most_popular_movies only%}
+
+{% endblock content %}

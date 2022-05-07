@@ -1,0 +1,24 @@
+.page-title {
+    text-align: center;
+}
+
+.sidebar {
+    list-style: none;
+    display: flex;
+}
+
+.sidebar li {
+    margin-right: 1rem;
+}
+
+.movie {
+    margin-bottom: 2rem;
+}
+
+.plot {
+    margin-left: 1rem;
+}
+
+ul {
+    margin: 0;
+}

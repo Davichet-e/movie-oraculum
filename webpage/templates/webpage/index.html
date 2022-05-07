@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Oraculum</title>
-</head>
-
-<body>
-    <h1>Welcome to Movie Oraculum!</h1>
-    {% for movie in most_popular_movies %}
-        <div>{{ movie }}</div>
-    {% endfor %}
-</body>
-
-</html>
+{% block content %}
+    <h1 class="page-title">Welcome to Movie Oraculum!</h1>
+    <h3>Trending movies from IMDb</h3>
+    {% include "./list_movies.html" with movies=most_popular_movies only %}
+{% endblock %}
