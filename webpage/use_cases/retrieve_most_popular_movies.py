@@ -1,9 +1,6 @@
 import bs4
 import httpx
 from webpage.entities.movie import RetrievedMovie
-from webpage.use_cases.retrieve_most_popular_movies_from_db import (
-    retrieve_most_popular_movies_from_db,
-)
 from webpage.use_cases.retrieve_movie import retrieve_movie
 from webpage.utils.constants import BASE_URL
 
