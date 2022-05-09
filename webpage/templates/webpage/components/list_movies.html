@@ -1,0 +1,3 @@
+{% for movie in movies %}
+    {% include "./movie_details.html" with movie=movie render_images=False only %}
+{% endfor %}

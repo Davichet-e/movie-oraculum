@@ -3,5 +3,5 @@
 {% block content %}
     <h1 class="page-title">Welcome to Movie Oraculum!</h1>
     <h3>Trending movies from IMDb</h3>
-    {% include "./list_movies.html" with movies=most_popular_movies only %}
+    {% include "./components/list_movies.html" with movies=most_popular_movies only %}
 {% endblock %}

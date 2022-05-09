@@ -1,7 +1,7 @@
 import bs4
 import httpx
 from webpage.entities.movie import RetrievedMovie
-from webpage.use_cases.retrieve_movie import retrieve_movie
+from webpage.use_cases.retrieve_movie_from_web import retrieve_movie_from_web
 from webpage.utils.constants import BASE_URL
 
 
@@ -14,10 +14,16 @@ def retrieve_most_popular_movies(*, trending: bool) -> list[RetrievedMovie]:
     # if movies_from_db is not None:
     #     return movies_from_db
 
-    url = BASE_URL + f"/chart/{'moviemeter' if trending else 'top'}/"
+    url = f"{BASE_URL}/chart/{'moviemeter' if trending else 'top'}/"
     response = httpx.get(url)
 
     soup = bs4.BeautifulSoup(response.content, "html.parser")
 
-    links = [BASE_URL + tag["href"] for tag in soup.select("td.titleColumn a")[:5]]
-    return [retrieve_movie(link) for link in links]
+    def get_movie_id_from_href(href: str) -> str:
+        return href.split("/", maxsplit=3)[2]  # /title/<movie_id>/ -> <movie_id>
+
+    links = [
+        get_movie_id_from_href(tag["href"])
+        for tag in soup.select("td.titleColumn a")[:5]
+    ]
+    return [retrieve_movie_from_web(link) for link in links]

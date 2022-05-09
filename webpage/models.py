@@ -1,3 +1,4 @@
+from __future__ import annotations
 from django.db import models
 
 from webpage.entities.movie import RetrievedMovie
@@ -12,6 +13,7 @@ class Genre(models.Model):
 
 
 class Movie(models.Model):
+    id = models.CharField(primary_key=True, max_length=20)
     title = models.CharField(max_length=200)
     poster_url = models.URLField()
     release_year = models.PositiveSmallIntegerField()
@@ -22,25 +24,25 @@ class Movie(models.Model):
     directors = models.ManyToManyField(Director)
     genres = models.ManyToManyField(Genre)
 
-    trending = models.BooleanField()
-
     @classmethod
-    def from_retrieved_movie(cls, retrieved_movie: RetrievedMovie) -> "Movie":
+    def from_retrieved_movie(cls, retrieved_movie: RetrievedMovie) -> Movie:
         new_movie = cls(
+            id=retrieved_movie.movie_id,
             title=retrieved_movie.title,
             poster_url=retrieved_movie.poster_url,
             release_year=retrieved_movie.release_year,
             duration=retrieved_movie.duration,
             rating=retrieved_movie.rating,
             plot=retrieved_movie.plot,
-
-            trending=retrieved_movie.trending
         )
-        new_movie.id = retrieved_movie.imdb_id
-        for director in retrieved_movie.directors:
-            new_movie.directors.add(Director.objects.create(name=director.name))
 
-        for genre in retrieved_movie.genres:
-            new_movie.genres.add(Genre.objects.create(name=genre.name))
+        new_movie.save()
+        if retrieved_movie.directors:
+            for director in retrieved_movie.directors:
+                new_movie.directors.create(name=director)
+
+        if retrieved_movie.genres:
+            for genre in retrieved_movie.genres:
+                new_movie.genres.create(name=genre)
 
         return new_movie

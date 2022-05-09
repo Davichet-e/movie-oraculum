@@ -5,7 +5,7 @@ from django.test import TestCase
 from webpage.entities.movie import RetrievedMovie
 from webpage.use_cases.exceptions import RetrievalException
 
-from webpage.use_cases.retrieve_movie import parse_duration, retrieve_movie
+from webpage.use_cases.retrieve_movie_from_web import parse_duration, retrieve_movie_from_web
 
 class WebscrappingTest(TestCase):
     url = "mocked"
@@ -26,13 +26,13 @@ There is a scene in the closing credits: Eddie Brock and Venom from the Sony Pic
         get_mock.return_value = SimpleNamespace(is_success=False, status_code=500)
 
         with self.assertRaises(RetrievalException):
-            retrieve_movie(self.url)
+            retrieve_movie_from_web(self.url)
 
     @patch("httpx.get")
     def test_should_return_the_correct_info_with_the_expected_markup(self, get_mock):
         get_mock.return_value = SimpleNamespace(is_success=True, status_code=200, content=self.markup)
 
-        received = retrieve_movie(self.url)
+        received = retrieve_movie_from_web(self.url)
 
         plot = "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man."
         expected = RetrievedMovie(

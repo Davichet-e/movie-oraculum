@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Details of movie with id={{ movie.movie_id }}</h1>
+{% include "./components/movie_details.html" with movie=movie render_images=True only %}
+{% endblock content %}

@@ -6,7 +6,7 @@ import datetime
 class RetrievedMovie:
     """Represent the movie extracted from the webpage."""
 
-    imdb_id: str
+    movie_id: str
     title: str
     poster_url: str
     release_year: int
@@ -20,13 +20,15 @@ class RetrievedMovie:
     # trending: bool # True if film is currently at https://www.imdb.com/chart/moviemeter/
 
 
-@dataclass
+@dataclass(frozen=True)
 class Movie:
+    movie_id: str
     title: str
+    poster_url: str
     release_year: int
-    duration: datetime.timedelta
-    rating: float
+    duration: datetime.timedelta | None
+    rating: float | None
     plot: str
 
     directors: list[str]
-    genres: list[str]
+    genres: list[str] | None
