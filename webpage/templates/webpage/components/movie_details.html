@@ -18,8 +18,8 @@
         </ul>
     </div>
     <div>Genres:
-        {% if movie.genres is None %}
-            Not fetched
+        {% if not movie.genres %}
+            Not fetched <button>Fetch! (TODO!)</button>
         {% else %}
             <ul>
             {% for genre in movie.genres %}
