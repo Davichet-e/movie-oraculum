@@ -17,7 +17,6 @@ def retrieve_movie(movie_id: str) -> Movie | None:
         repository.create_movie_from_retrieved_movie(movie)
     
     else:
-
         movie = parse_model_to_entity_movie(movie)
 
     return movie

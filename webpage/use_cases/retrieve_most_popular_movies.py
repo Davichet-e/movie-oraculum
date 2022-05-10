@@ -1,8 +1,7 @@
 import bs4
 import httpx
 from webpage.entities.movie import RetrievedMovie
-from webpage.repositories.sqlite_repository import SQLiteRepository
-from webpage.use_cases.retrieve_movie_from_web import retrieve_movie_from_web
+from webpage.use_cases.retrieve_movie import retrieve_movie
 from webpage.utils.constants import BASE_URL
 
 
@@ -11,10 +10,6 @@ def retrieve_most_popular_movies(*, trending: bool) -> list[RetrievedMovie]:
 
     :param trending: if true, return the most popular movies of the moment (trending), if false, return the most popular movies of all time.
     """
-    # movies_from_db = retrieve_most_popular_movies_from_db(trending)
-    # if movies_from_db is not None:
-    #     return movies_from_db
-
     url = f"{BASE_URL}/chart/{'moviemeter' if trending else 'top'}/"
     response = httpx.get(url)
 
@@ -23,15 +18,10 @@ def retrieve_most_popular_movies(*, trending: bool) -> list[RetrievedMovie]:
     def get_movie_id_from_href(href: str) -> str:
         return href.split("/", maxsplit=3)[2]  # /title/<movie_id>/ -> <movie_id>
 
-    links = [
+    movie_ids = [
         get_movie_id_from_href(tag["href"])
         for tag in soup.select("td.titleColumn a")[:5]
     ]
-    movies = [retrieve_movie_from_web(link) for link in links]
-    repository = SQLiteRepository()
-
-    for movie in movies:
-        if repository.retrieve_movie_by_id(movie.movie_id) is None:
-            repository.create_movie_from_retrieved_movie(movie)
+    movies = [retrieve_movie(movie_id) for movie_id in movie_ids]
 
     return movies
