@@ -15,3 +15,11 @@ class SQLiteRepository(MovieRepository):
         self, retrieved_movie: RetrievedMovie
     ) -> None:
         Movie.from_retrieved_movie(retrieved_movie)
+
+    def filter_movies_by_int_field(self, field: str, value: int) -> list[Movie]:
+        return Movie.objects.filter(**{field: value})
+
+    def filter_movies_by_many_to_many_field(
+        self, field: str, value: str
+    ) -> list[Movie]:
+        return Movie.objects.filter(**{f"{field}__name": value})

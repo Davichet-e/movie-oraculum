@@ -1,6 +1,7 @@
 import bs4
 import httpx
 from webpage.entities.movie import RetrievedMovie
+from webpage.repositories.sqlite_repository import SQLiteRepository
 from webpage.use_cases.retrieve_movie_from_web import retrieve_movie_from_web
 from webpage.utils.constants import BASE_URL
 
@@ -26,4 +27,11 @@ def retrieve_most_popular_movies(*, trending: bool) -> list[RetrievedMovie]:
         get_movie_id_from_href(tag["href"])
         for tag in soup.select("td.titleColumn a")[:5]
     ]
-    return [retrieve_movie_from_web(link) for link in links]
+    movies = [retrieve_movie_from_web(link) for link in links]
+    repository = SQLiteRepository()
+
+    for movie in movies:
+        if repository.retrieve_movie_by_id(movie.movie_id) is None:
+            repository.create_movie_from_retrieved_movie(movie)
+
+    return movies

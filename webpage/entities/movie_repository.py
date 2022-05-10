@@ -14,3 +14,13 @@ class MovieRepository(abc.ABC):
         self, retrieved_movie: RetrievedMovie
     ) -> None:
         ...
+
+    @abc.abstractmethod
+    def filter_movies_by_int_field(self, field: str, value: int) -> list[Movie]:
+        ...
+
+    @abc.abstractmethod
+    def filter_movies_by_many_to_many_field(
+        self, field: str, value: str
+    ) -> list[Movie]:
+        ...

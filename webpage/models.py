@@ -17,8 +17,8 @@ class Movie(models.Model):
     title = models.CharField(max_length=200)
     poster_url = models.URLField()
     release_year = models.PositiveSmallIntegerField()
-    duration = models.DurationField()
-    rating = models.FloatField()
+    duration = models.DurationField(null=True)
+    rating = models.FloatField(null=True)
     plot = models.TextField()
 
     directors = models.ManyToManyField(Director)

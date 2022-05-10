@@ -1,3 +1,5 @@
 {% for movie in movies %}
     {% include "./movie_details.html" with movie=movie render_images=False only %}
+{% empty %}
+<h1>No movies!</h1>
 {% endfor %}

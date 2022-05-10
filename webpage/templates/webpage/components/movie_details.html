@@ -6,14 +6,22 @@
         <div>Poster URL: <a href="{{ movie.poster_url }}">click</a></div>
     {% endif %}
     
-    <div>Release year: {{ movie.release_year }}</div>
+    <div>Release year:
+        <a href="{% url 'filter_movies_by_field' field='release_year' value=movie.release_year %}">
+            {{ movie.release_year }}
+        </a>
+    </div>
     <div>Duration: {{ movie.duration }} (hh:mm:ss)</div>
     <div>Rating: {{ movie.rating }} / 10</div>
     <div>Plot: <div class="plot">{{ movie.plot }}</div></div>
     <div>Directors:
         <ul>
         {% for director in movie.directors %}
-            <li>{{ director }}</li>
+            <li>       
+                <a href="{% url 'filter_movies_by_field' field='directors' value=director %}">
+                        {{ director }}
+                </a>
+            </li>
         {% endfor %}
         </ul>
     </div>
@@ -23,7 +31,11 @@
         {% else %}
             <ul>
             {% for genre in movie.genres %}
-                <li>{{ genre }}</li>
+            <li>       
+                <a href="{% url 'filter_movies_by_field' field='genres' value=genre %}">
+                        {{ genre }}
+                </a>
+            </li>
             {% endfor %}
             </ul>
         {% endif %}
