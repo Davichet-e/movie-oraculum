@@ -1,5 +1,5 @@
 <div class="movie">
-    <div>Title: <a href="{% url 'movie_details' movie_id=movie.movie_id %}">{{ movie.title }}</a></div>
+    <div>Title: <a href="{% url 'movie_details' movie_id=movie.movie_id  %}">{{ movie.title }}</a></div>
     {% if render_images %}
         <img src="{{ movie.poster_url }}" alt="poster of the film"/>
     {% else %}

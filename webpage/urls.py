@@ -2,6 +2,7 @@ from django.urls import path
 from webpage.views.filter_movies_by_field import filter_movies_by_field_view
 
 from webpage.views.movie_details import movie_details
+from webpage.views.search_movies import SearchMovieView
 
 from .views.index import index
 from .views.review_analysis import ReviewAnalysisView
@@ -9,6 +10,7 @@ from .views.top_movies import top_movies
 
 
 urlpatterns = [
+    path("search", SearchMovieView.as_view(), name="search"),
     path(
         "movies/<field>/<value>/",
         filter_movies_by_field_view,

@@ -14,12 +14,12 @@ class Genre(models.Model):
 
 class Movie(models.Model):
     id = models.CharField(primary_key=True, max_length=20)
-    title = models.CharField(max_length=200)
+    # title = models.CharField(max_length=200)
     poster_url = models.URLField()
-    release_year = models.PositiveSmallIntegerField()
+    # release_year = models.PositiveSmallIntegerField()
     duration = models.DurationField(null=True)
     rating = models.FloatField(null=True)
-    plot = models.TextField()
+    # plot = models.TextField()
 
     directors = models.ManyToManyField(Director)
     genres = models.ManyToManyField(Genre)
@@ -28,12 +28,9 @@ class Movie(models.Model):
     def from_retrieved_movie(cls, retrieved_movie: RetrievedMovie) -> Movie:
         new_movie = cls(
             id=retrieved_movie.movie_id,
-            title=retrieved_movie.title,
             poster_url=retrieved_movie.poster_url,
-            release_year=retrieved_movie.release_year,
             duration=retrieved_movie.duration,
             rating=retrieved_movie.rating,
-            plot=retrieved_movie.plot,
         )
 
         new_movie.save()

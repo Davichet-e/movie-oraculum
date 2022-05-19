@@ -3,4 +3,11 @@
 {% block content %}
 <h1>Details of movie with id={{ movie.movie_id }}</h1>
 {% include "./components/movie_details.html" with movie=movie render_images=True only %}
+
+{% if user.is_authenticated %}
+    <h1>Based on your liked movies, you may like:</h1>
+    {% for recommended_movie in recommended_movies %}
+        
+    {% endfor %}
+{% endif %}
 {% endblock content %}

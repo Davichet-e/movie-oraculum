@@ -15,7 +15,7 @@ def retrieve_movie_from_web(movie_id: str) -> RetrievedMovie:
         raise RetrievalException(response.status_code)
     soup = bs4.BeautifulSoup(response.content, "html.parser")
 
-    title = soup.select_one('[data-testid="hero-title-block__title"]').string
+    title = soup.select_one('[data-testid="hero-title-block__title"]').text
 
     poster_url = soup.select_one(".ipc-poster__poster-image img")["src"]
 
@@ -37,7 +37,7 @@ def retrieve_movie_from_web(movie_id: str) -> RetrievedMovie:
     else:
         rating = float(rating_element.string)
 
-    plot = soup.select_one('[data-testid="plot-xl"]').string
+    plot = soup.select_one('[data-testid="plot-xl"]').text
 
     directors = list(
         {

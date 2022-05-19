@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Result of the search</h1>
+{% include "./components/list_movies.html" with movies=movies only %}
+{% endblock content %}
