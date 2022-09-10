@@ -94,3 +94,5 @@ GitHub.sublime-settings
 *.joblib
 
 indexdir
+
+recommendation_matrix.npz

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h1>Search movies:</h1>
+
 <form action="/search" method="post">
     {% csrf_token %}
     {{ form }}

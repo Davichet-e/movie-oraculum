@@ -8,7 +8,7 @@ from django.db.models import QuerySet
 
 
 class SQLiteRepository(MovieRepository):
-    def retrieve_movie_by_id(self, movie_id: str) -> models.Movie | None:
+    def retrieve_movie_by_id(self, movie_id: str) -> Movie | None:
         try:
             movie = models.Movie.objects.get(pk=movie_id)
             return Movie.from_model_and_whoosh_movie(movie, get_movie(movie.id))
@@ -26,6 +26,11 @@ class SQLiteRepository(MovieRepository):
             retrieved_movie.release_year,
         )
         models.Movie.from_retrieved_movie(retrieved_movie)
+    
+    def update_movie_with_genres(self, movie: RetrievedMovie):
+        movie_db = models.Movie.objects.get(pk=movie.movie_id)
+        for genre in movie.genres:
+            movie_db.genres.create(name=genre)
 
     def filter_movies_by_int_field(self, field: str, value: int) -> list[Movie]:
         return self._parse_models_to_movies(

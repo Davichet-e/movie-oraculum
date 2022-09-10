@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>Analyze your request</h1>
+    <p>Fill any of the inputs, if both are specified, only the URL will take into account.</p>
     <form method="POST">
         {% csrf_token %}
         {{ form }}
