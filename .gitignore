@@ -96,3 +96,5 @@ GitHub.sublime-settings
 indexdir
 
 recommendation_matrix.npz
+
+*.npy
